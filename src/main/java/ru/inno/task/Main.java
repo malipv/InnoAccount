@@ -1,5 +1,6 @@
 package ru.inno.task;
 
+//поправить тесты!
 public class Main {
 
     public static void main(String[] args) {
