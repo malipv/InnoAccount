@@ -1,24 +1,33 @@
 package ru.inno.task;
 
-//import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-// работаем с тестами
 class AccountTest {
 
     @Test
-    void getName() {
-    }
-    @Test
-    public void Test()
+    public void checkValue()
     {
-        Account acc = new Account("Malichenko Pavel Victorovich");
+        Account acc = new Account("Malichenko");
         acc.setValues(Currency.RUB, 60);
-        acc.setValues(Currency.USD, 10);
-        acc.setName("Malichenko Tatiana Vladimirovna");
-        acc.setValues(Currency.RUB, 80);
-        acc.setValues(Currency.EUR, 20);
-        Loadable qst1 = acc.Save();
+    }
+
+    @Test
+    void checkUndo() throws NothingToUndo {
+        Account acc = new Account("ABCD");
+        String oldName = acc.getName();
+        acc.setName("QWERTY");
         acc.undo();
+        Assertions.assertEquals(oldName, acc.getName());
+    }
+
+    @Test
+    void checkLoad() throws RuntimeException {
+        Account acc = new Account("ABCD");
+        String oldName = acc.getName();
+        Loadable qs1 = acc.Save();
+        acc.setName("QWERTY");
+        qs1.load();
+        Assertions.assertEquals(oldName, acc.getName());
     }
 }
